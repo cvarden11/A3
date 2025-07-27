@@ -9,6 +9,7 @@ import cartRoutes from './routes/carts'
 import wishlistRoutes from './routes/wishlists'
 import orderRoutes from './routes/orders'
 import compression from 'compression';
+import helmet from 'helmet';
 
 
 const env = process.env.NODE_ENV || 'dev';
@@ -18,6 +19,23 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 app.use(compression());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        imgSrc: ["'self'", "data:"],
+        fontSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        frameAncestors: ["'none'"],
+      },
+    },
+    frameguard: { action: 'deny' },
+  })
+);
 
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)
