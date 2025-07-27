@@ -309,12 +309,12 @@ const ProductDetails: React.FC = () => {
                   className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-md border border-gray-200 overflow-hidden cursor-pointer hover:border-gray-400 transition-colors duration-200"
                   onClick={() => setMainImage(img)}
                 >
-                  <img src={img} alt={`${productData.name} thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+                  <img src={img} alt={`${productData.name} thumbnail ${index + 1}`} className="w-full h-full object-cover" loading="lazy"/>
                 </div>
               ))}
             </div>
             <div className="flex-grow flex-shrink rounded-lg overflow-hidden border border-gray-200 w-full flex items-center justify-center">
-              <img src={mainImage} alt={`Main image of ${productData.name}`} className="block w-full h-auto object-contain" />
+              <img src={mainImage} alt={`Main image of ${productData.name}`} className="block w-full h-auto object-contain" loading="lazy"/>
             </div>
           </div>
 

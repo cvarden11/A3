@@ -64,6 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             // Fallback image in case the original image fails to load
             (e.currentTarget as HTMLImageElement).src = `https://placehold.co/200x200/cccccc/333333?text=${product.name.replace(/\s/g, '+')}`;
           }}
+          loading="lazy"
         />
         <h3 className="text-lg font-semibold text-gray-800 text-center">
           {product.name}

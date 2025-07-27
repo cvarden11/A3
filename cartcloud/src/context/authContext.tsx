@@ -32,6 +32,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     useEffect(() => {
         (async () => {
             const token = localStorage.getItem("token");
+            const cachedUser = localStorage.getItem("user");
+            if (token && cachedUser) {
+                setUser(JSON.parse(cachedUser));
+                setIsLoading(false);
+                return;
+            }
             if (token) {
                 try {
                     const decoded: any = jwtDecode(token);
@@ -84,6 +90,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         };
         console.log("Setting user after login:", userObj);
         setUser(userObj);
+        localStorage.setItem("user", JSON.stringify(userObj));
+        
     }
 
     async function signup(name: string, email: string, password: string, role: "customer" | "vendor") {
@@ -108,10 +116,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         };
         console.log("Setting user after signup:", userObj);
         setUser(userObj);
+        localStorage.setItem("user", JSON.stringify(userObj));
     }
 
     function logout() {
         setUser(null);
+        localStorage.removeItem("user");
         localStorage.removeItem("token");
     }
     return (

@@ -8,6 +8,8 @@ import authRoutes from './routes/auth';
 import cartRoutes from './routes/carts'
 import wishlistRoutes from './routes/wishlists'
 import orderRoutes from './routes/orders'
+import compression from 'compression';
+
 
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({ path: `.env.${env}` });
@@ -15,6 +17,7 @@ dotenv.config({ path: `.env.${env}` });
 const app = express();
 app.use(express.json());
 app.use(cors())
+app.use(compression());
 
 app.use('/users', userRoutes)
 app.use('/products', productRoutes)

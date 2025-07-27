@@ -191,6 +191,7 @@ const SearchPage: React.FC = () => {
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = `https://placehold.co/200x200/cccccc/333333?text=${product.name.replace(/\\s/g, '+')}`;
                     }}
+                    loading="lazy"
                   />
                   <h3 className="text-lg font-semibold text-gray-800 text-center">{product.name}</h3>
                   {product.category && <p className="text-sm text-gray-500 text-center mb-2">{product.category}</p>}

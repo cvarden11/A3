@@ -197,6 +197,7 @@ export default function Checkout() {
                         onError={(e) => {
                           (e.currentTarget as HTMLImageElement).src = fallbackImage;
                         }}
+                        loading="lazy"
                       />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm">{productName}</p>

@@ -5,6 +5,12 @@ import CartModel from '../../models/Cart';
 import UserModel from '../../models/User';
 import mongoose from 'mongoose';
 
+const analyticsCache: {
+  [vendorId: string]: { data: any; timestamp: number }
+} = {};
+
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
 // Get a specific order by ID
 export const getOrderById = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -160,7 +166,15 @@ export const createOrder = async (req: Request, res: Response): Promise<any> => 
 export const getAnalytics = async (req: Request, res: Response): Promise<any> => {
   try {
     const { vendorId } = req.params;
-    console.log(vendorId)
+    const cacheKey = vendorId;
+    const now = Date.now();
+
+    const cached = analyticsCache[cacheKey];
+    if (cached && now - cached.timestamp < CACHE_TTL_MS) {
+      console.log('Serving analytics from cache');
+      return res.status(200).json(cached.data);
+    }
+
     const vendorObjectId = new mongoose.Types.ObjectId(vendorId);
 
     const monthlyData = await OrderModel.aggregate([
@@ -245,6 +259,11 @@ const result = await CartModel.aggregate([
       totalSales: completedData?.totalItemsSold|| 0,
       totalRevenue: completedData?.totalRevenue || 0,
       totalInCart: result[0]?.totalQuantity || 0,
+    };
+    
+    analyticsCache[cacheKey] = {
+      data: analytics,
+      timestamp: Date.now()
     };
 
     return res.status(200).json(analytics);

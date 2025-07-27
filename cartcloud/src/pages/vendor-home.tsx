@@ -195,7 +195,7 @@ const VendorHomePage = () => {
                     </div>
                 )}
                     <div className="w-[25%] h-[50%] bg-white rounded-lg border border-gray-300 overflow-hidden p-4 md:p-8 flex flex-col ">
-                        <img src={vendor?.storeImage||"https://roofwizards.com/wp-content/plugins/elementor/assets/images/placeholder.png"} alt={"Store Image"} className="w-full object-cover" />
+                        <img src={vendor?.storeImage||"https://roofwizards.com/wp-content/plugins/elementor/assets/images/placeholder.png"} alt={"Store Image"} className="w-full object-cover" loading="lazy"/>
                         <h2 className='font-semibold py-2 text-center'>{vendor?.storeName||"N/A"}</h2>
                         <Link to="/vendor-products" className="self-center">
                             <Button className="w-full md:w-auto">View Products in Store</Button>

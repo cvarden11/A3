@@ -351,6 +351,7 @@ export default function OrderDetails() {
                         src={item.productId?.imageUrl || `https://placehold.co/80x80/cccccc/333333?text=${item.name.replace(/\s/g, '+')}`}
                         alt={item.name}
                         className="w-16 h-16 object-cover rounded-md"
+                        loading="lazy"
                       />
                       <div className="flex-1">
                         <h3 className="font-semibold">{item.name}</h3>
